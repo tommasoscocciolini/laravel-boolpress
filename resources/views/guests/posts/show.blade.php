@@ -80,15 +80,11 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
-                    Boolpress
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-md-8">
-                      <a href="{{route('posts.index')}}">Show Posts</a>
-                    </div>
-                </div>
+              <h2>{{$post->title}}</h2>
+              <p>{{$post->content}}</p>
             </div>
+
+            <a href="{{route('posts.index')}}">Back</a>
         </div>
     </body>
 </html>
