@@ -4,13 +4,14 @@
 <div class="container">
   <div class="row justify-content-center">
       <div class="col-md-8">
-        <h4>Admin:</h4>
-        <a href="{{route('admin.posts.index')}}">Show Posts</a>
+        <h4>Admin Dashboard:</h4>
+        <a class="btn btn-primary my-4" href="{{route('admin.posts.index')}}">Show Posts</a>
+        <a class="btn btn-primary my-4" href="{{route('admin.categories.index')}}">Show Categories</a>
+
       </div>
   </div>
   <div class="row justify-content-center">
       <div class="col-md-8">
-        <h4>Guests:</h4>
 
       </div>
   </div>

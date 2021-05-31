@@ -80,14 +80,13 @@
             @endif
 
             <div class="content">
-                @if ($post->category)
-                <h4>Categoria:
-                <i><a href="{{route('category.index', ['slug' => $post->category->slug])}}">{{$post->category->name}}</a></i></h4>
-                @endif
+                <div class="row justify-content-center">
+                  <div class="col-md-8">
+                    <h1>{{$category->name}}</h1>
+                  </div>
+                </div>
 
-              <h2>{{$post->title}}</h2>
-              <p>{{$post->content}}</p>
-              <a href="{{route('admin.posts.index')}}">Back to Posts</a>
+              <a href="{{route('admin.categories.index')}}">Back to categories</a>
             </div>
         </div>
     </body>

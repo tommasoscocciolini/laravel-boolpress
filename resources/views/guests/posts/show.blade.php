@@ -80,11 +80,16 @@
             @endif
 
             <div class="content">
+              @if ($post->category)
+              <h4>Categoria:
+              <i><a href="{{route('category.index', ['slug' => $post->category->slug])}}">{{$post->category->name}}</a></i></h4>
+              @endif
+
               <h2>{{$post->title}}</h2>
               <p>{{$post->content}}</p>
+              <a class="mt-4" href="{{route('posts.index')}}">Back</a>
             </div>
 
-            <a href="{{route('posts.index')}}">Back</a>
         </div>
     </body>
 </html>

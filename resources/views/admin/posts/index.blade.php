@@ -11,7 +11,11 @@
       @foreach ($posts as $post)
       <div class="col-md-3">
           <div class="card">
-              <div class="card-header">{{ $post->title }}</div>
+              <div class="card-header">{{ $post->title }}
+                @if ($post->category)
+                <i><a href="{{route('category.index', ['slug' => $post->category->slug])}}">{{$post->category->name}}</a></i></h4>
+                @endif
+               </div>
 
               <div class="card-body">
                   {{$post->content}}
