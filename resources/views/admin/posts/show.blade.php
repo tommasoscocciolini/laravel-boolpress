@@ -80,6 +80,10 @@
             @endif
 
             <div class="content">
+                @if ($post->cover)
+                <img src="{{asset($post->cover)}}" alt="{{$post->title}}" height="500">
+                @endif
+
                 @if ($post->category)
                 <h4>Categoria:
                 <i><a href="{{route('category.index', ['slug' => $post->category->slug])}}">{{$post->category->name}}</a></i></h4>

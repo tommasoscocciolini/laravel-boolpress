@@ -6,9 +6,11 @@ use App\Post;
 use App\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Mail\SendNewMail;
 
 use Illuminate\Support\Str;
-
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
 
 class PostController extends Controller
 {
@@ -46,16 +48,25 @@ class PostController extends Controller
         $request->validate([
           'category_id' => 'exists:categories,id|nullable',
           'title' => 'required|string|max:255',
-          'content' => 'required|string'
+          'content' => 'required|string',
+          'cover' => 'image|max:2500|nullable',
         ]);
 
         $data = $request->all();
+
+        $cover = NULL;
+        if (array_key_exists('cover', $data)) {
+          $cover = Storage::put('uploads', $data['cover']);
+        }
 
         $post = new Post();
         $post->fill($data);
 
         $post->slug = $this->generateSlug($post->title);
+        $post->cover = 'storage/'.$cover;
         $post->save();
+
+        Mail::to('mail@mail.it')->send(new SendNewMail());
 
         return redirect()-> route('admin.posts.index');
     }
@@ -93,15 +104,21 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
       $request->validate([
+        'category_id' => 'exists:categories,id|nullable',
         'title' => 'required|string|max:255',
-        'content' => 'required|string'
+        'content' => 'required|string',
+        'cover' => 'image|max:2500|nullable',
       ]);
 
       $data = $request->all();
 
-      //if () {   --- use ...title'], $post->title != $data['title']);... al posto di if
-        $data['slug'] = $this->generateSlug($data['title'], $post->title != $data['title'], $post->slug);
-      //}
+      $data['slug'] = $this->generateSlug($data['title'], $post->title != $data['title'], $post->slug);
+
+
+      if (array_key_exists('cover', $data)) {
+        $cover = Storage::put('uploads', $data['cover']);
+        $data['cover'] = 'storage/'.$cover;
+      }
 
       $post->update($data);
 
